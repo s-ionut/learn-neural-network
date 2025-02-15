@@ -7,7 +7,9 @@ namespace primitive
     class Pixel : raylib::Rectangle
     {
     public:
-        Pixel(double posX, double posY, raylib::Color color);
+        Pixel(double posX, double posY, raylib::Color color)
+            : raylib::Rectangle(posX, posY, PIXEL_SIZE, PIXEL_SIZE),
+              m_color{color} {};
         ~Pixel() = default;
 
         void Draw() const;

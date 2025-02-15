@@ -19,10 +19,9 @@ void Application::Run()
     }
 };
 
-void Application::Update()
-{
+void Application::Update() {
     // TODO
-}
+};
 
 void Application::Render()
 {
@@ -33,4 +32,4 @@ void Application::Render()
     m_circle.Draw();
 
     EndDrawing();
-}
+};
