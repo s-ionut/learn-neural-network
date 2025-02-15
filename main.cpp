@@ -1,7 +1,10 @@
-#include <iostream>
+#include "Application/Application.hpp"
 
 int main()
 {
-    std::cout << "basic setup done!" << std::endl;
+    Application nnAppl(800, 450, "Neural Network");
+
+    nnAppl.Run();
+
     return 0;
 }

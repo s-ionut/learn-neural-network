@@ -3,6 +3,8 @@ project(neural-network)
 
 set(CMAKE_CXX_STANDARD 17)
 
+set(SOURCE_FILES CACHE INTERNAL "")
+
 include(vendors/raylib.cmake)
 include(vendors/raylib-cpp.cmake)
 
@@ -15,6 +17,10 @@ target_link_libraries(${PROJECT_NAME}
 )
 
 target_include_directories(${PROJECT_NAME} PRIVATE core)
+
+include(core/core.cmake)
+
+target_sources(${PROJECT_NAME} PRIVATE ${SOURCE_FILES})
 
 install(
     TARGETS ${PROJECT_NAME}
