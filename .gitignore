@@ -1,0 +1,7 @@
+# vscode user settings
+.vscode
+
+# cmake build/install
+.build
+.install
+
