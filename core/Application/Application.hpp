@@ -6,6 +6,7 @@ class Application
 {
 public:
     Application(int width, int height, std::string_view windowName);
+    ~Application() = default;
     void Run();
 
 private:
