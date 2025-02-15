@@ -9,6 +9,10 @@ public:
     void Run();
 
 private:
+    void Update();
+    void Render();
+
+private:
     int m_width;
     int m_height;
     std::string_view m_windowName;
