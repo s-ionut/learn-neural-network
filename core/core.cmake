@@ -4,4 +4,6 @@ set(CORE_BASE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/core)
 
 set(SOURCE_FILES
     ${CORE_BASE_DIR}/Application/Application.cpp
+    ${CORE_BASE_DIR}/Pixel/Pixel.cpp
+    ${CORE_BASE_DIR}/Circle/Circle.cpp
 )

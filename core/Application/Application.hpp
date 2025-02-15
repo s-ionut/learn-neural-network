@@ -1,5 +1,7 @@
 #include "raylib-cpp.hpp"
 
+#include "Circle/Circle.hpp"
+
 #include <string>
 
 class Application
@@ -17,6 +19,8 @@ private:
     int m_width;
     int m_height;
     std::string_view m_windowName;
+
+    primitive::Circle m_circle;
 
     raylib::Window m_window;
 };
