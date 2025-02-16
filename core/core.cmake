@@ -2,9 +2,10 @@
 
 set(CORE_BASE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/core)
 
+include(${CORE_BASE_DIR}/Primitives/primitives.cmake)
+
 set(SOURCE_FILES
+    ${PRIMITIVES_SRC}
     ${CORE_BASE_DIR}/Application/Application.cpp
-    ${CORE_BASE_DIR}/Pixel/Pixel.cpp
-    ${CORE_BASE_DIR}/Circle/Circle.cpp
     ${CORE_BASE_DIR}/Neuron/Neuron.cpp
 )

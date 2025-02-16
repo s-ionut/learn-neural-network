@@ -16,9 +16,13 @@ target_link_libraries(${PROJECT_NAME}
     raylib_cpp
 )
 
-target_include_directories(${PROJECT_NAME} PRIVATE core)
+target_include_directories(${PROJECT_NAME}
+    PRIVATE
+    core
+    core/Primitives
+)
 
-include(core/core.cmake)
+include(${CMAKE_CURRENT_SOURCE_DIR}/core/core.cmake)
 
 target_sources(${PROJECT_NAME} PRIVATE ${SOURCE_FILES})
 
