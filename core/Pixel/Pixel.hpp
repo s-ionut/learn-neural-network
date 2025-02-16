@@ -4,11 +4,11 @@ namespace primitive
 {
     constexpr int PIXEL_SIZE = 1;
 
-    class Pixel : raylib::Rectangle
+    class Pixel : public raylib::Rectangle
     {
     public:
         Pixel(double posX, double posY, raylib::Color color)
-            : raylib::Rectangle(posX, posY, PIXEL_SIZE, PIXEL_SIZE),
+            : raylib::Rectangle(static_cast<float>(posX), static_cast<float>(posY), PIXEL_SIZE, PIXEL_SIZE),
               m_color{color} {};
         ~Pixel() = default;
 

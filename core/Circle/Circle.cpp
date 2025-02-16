@@ -21,12 +21,12 @@ void Circle::GeneratePixels()
 
     while (x <= y)
     {
-        for (int i = m_originX - x; i <= m_originX + x; i++)
+        for (double i = m_originX - x; i <= m_originX + x; i++)
         {
             m_pixels.push_back(primitive::Pixel(i, m_originY + y, m_fillColor));
             m_pixels.push_back(primitive::Pixel(i, m_originY - y, m_fillColor));
         }
-        for (int i = m_originX - y; i <= m_originX + y; i++)
+        for (double i = m_originX - y; i <= m_originX + y; i++)
         {
             m_pixels.push_back(primitive::Pixel(i, m_originY + x, m_fillColor));
             m_pixels.push_back(primitive::Pixel(i, m_originY - x, m_fillColor));

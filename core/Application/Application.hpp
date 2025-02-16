@@ -1,6 +1,6 @@
 #include "raylib-cpp.hpp"
 
-#include "Circle/Circle.hpp"
+#include "Neuron/Neuron.hpp"
 
 #include <string>
 
@@ -20,7 +20,7 @@ private:
     int m_height;
     std::string_view m_windowName;
 
-    primitive::Circle m_circle;
+    std::vector<Neuron> m_neurons;
 
     raylib::Window m_window;
 };
