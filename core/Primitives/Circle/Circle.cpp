@@ -61,6 +61,12 @@ void Circle::SetRadius(double radius)
     m_radius = radius;
 }
 
+void Circle::SetColor(raylib::Color fillColor, raylib::Color borderColor)
+{
+    m_fillColor = fillColor;
+    m_borderColor = borderColor;
+}
+
 void Circle::Update()
 {
     // Use Bresenham's circle algorithm

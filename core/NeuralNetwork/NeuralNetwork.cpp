@@ -50,6 +50,7 @@ void NeuralNetwork::Resize(double graphMinX, double graphMinY, double graphMaxX,
             double neuronY = layerStartY + j * verticalSpacing;
             m_layers[i][j].SetPosition(layerX, neuronY);
             m_layers[i][j].SetRadius(neuronRadius);
+            m_layers[i][j].SetColor(m_layerColorMapping[i]);
         }
     }
 }

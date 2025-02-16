@@ -24,4 +24,21 @@ private:
     double m_graphMinY = 0.;
     double m_graphMaxX = 400.;
     double m_graphMaxY = 400.;
+
+private:
+    std::vector<NeuronColor> m_layerColorMapping =
+    {
+        {
+            raylib::Color::White(),
+            raylib::Color::Gray()
+        }, // INPUT LAYER
+        {
+            raylib::Color::Green(),
+            raylib::Color::Black()
+        }, // HIDDEN LAYER
+        {
+            raylib::Color::White(),
+            raylib::Color::Gray()
+        }, // OUTPUT LAYER
+    };
 };

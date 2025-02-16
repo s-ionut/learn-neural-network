@@ -15,6 +15,7 @@ namespace primitive
 
         void SetPosition(double originX, double originY);
         void SetRadius(double radius);
+        void SetColor(raylib::Color fillColor, raylib::Color borderColor);
 
     private:
         void GeneratePixels();
