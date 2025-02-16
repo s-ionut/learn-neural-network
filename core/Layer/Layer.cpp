@@ -7,7 +7,7 @@ Layer::Layer(size_t layerSize)
 Neuron &Layer::GetNeuron(const int position)
 {
     return m_neurons[position];
-}
+};
 
 void Layer::Update()
 {
@@ -15,7 +15,7 @@ void Layer::Update()
     {
         neuron.Update();
     }
-}
+};
 
 void Layer::Draw()
 {
@@ -23,4 +23,4 @@ void Layer::Draw()
     {
         neuron.Draw();
     }
-}
+};

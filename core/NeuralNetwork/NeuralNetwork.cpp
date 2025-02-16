@@ -10,6 +10,8 @@ NeuralNetwork::NeuralNetwork(const size_t numLayers, const std::vector<int> &lay
     }
 
     Resize(0, 0, 400, 400);
+
+    SetConnections();
 };
 
 void NeuralNetwork::Resize(double graphMinX, double graphMinY, double graphMaxX, double graphMaxY)
@@ -53,7 +55,31 @@ void NeuralNetwork::Resize(double graphMinX, double graphMinY, double graphMaxX,
             m_layers[i].GetNeuron(j).SetColor(layerColor);
         }
     }
-}
+
+    SetConnections();
+};
+
+void NeuralNetwork::SetConnections()
+{
+    m_connections.clear();
+
+    for (int i = 0; i < m_numLayers - 1; i++)
+    {
+        Layer *currLayer = &m_layers[i];
+        Layer *nextLayer = &m_layers[i + 1];
+        for (int j = 0; j < m_layerSizes[i]; ++j)
+        {
+            // set lines and weights
+            raylib::Vector2 startPos = currLayer->GetNeuron(j).GetPosition();
+
+            for (int k = 0; k < m_layerSizes[i + 1]; k++)
+            {
+                raylib::Vector2 endPos = nextLayer->GetNeuron(k).GetPosition();
+                m_connections.push_back(Connection(startPos.x, startPos.y, endPos.x, endPos.y));
+            }
+        }
+    }
+};
 
 void NeuralNetwork::Update()
 {
@@ -65,6 +91,11 @@ void NeuralNetwork::Update()
 
 void NeuralNetwork::Draw()
 {
+    for (Connection &connection : m_connections)
+    {
+        connection.Draw();
+    }
+
     for (Layer &layer : m_layers)
     {
         layer.Draw();

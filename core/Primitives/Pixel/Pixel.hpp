@@ -1,8 +1,10 @@
+#pragma once
+
 #include "raylib-cpp.hpp"
 
 namespace primitive
 {
-    constexpr int PIXEL_SIZE = 1;
+    const int PIXEL_SIZE = 1;
 
     class Pixel : public raylib::Rectangle
     {
@@ -17,4 +19,4 @@ namespace primitive
     private:
         raylib::Color m_color;
     };
-} // namespace primitive
+}; // namespace primitive

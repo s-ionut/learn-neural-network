@@ -9,5 +9,6 @@ set(SOURCE_FILES
     ${CORE_BASE_DIR}/Application/Application.cpp
     ${CORE_BASE_DIR}/Neuron/Neuron.cpp
     ${CORE_BASE_DIR}/Layer/Layer.cpp
+    ${CORE_BASE_DIR}/Connection/Connection.cpp
     ${CORE_BASE_DIR}/NeuralNetwork/NeuralNetwork.cpp
 )

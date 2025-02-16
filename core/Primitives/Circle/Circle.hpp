@@ -1,3 +1,5 @@
+#pragma once
+
 #include "raylib-cpp.hpp"
 
 #include "Pixel/Pixel.hpp"
@@ -12,6 +14,8 @@ namespace primitive
 
         void Update();
         void Draw() const;
+
+        raylib::Vector2 GetPosition();
 
         void SetPosition(double originX, double originY);
         void SetRadius(double radius);
@@ -28,4 +32,4 @@ namespace primitive
         raylib::Color m_borderColor;
         std::vector<primitive::Pixel> m_pixels;
     };
-} // namespace primitive
+}; // namespace primitive

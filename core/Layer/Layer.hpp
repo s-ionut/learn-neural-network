@@ -1,3 +1,5 @@
+#pragma once
+
 #include "Neuron/Neuron.hpp"
 
 #include <vector>
@@ -10,6 +12,8 @@ public:
 
     void Draw();
     void Update();
+
+    void SetConnections(const Layer &nextLayer);
 
     Neuron &GetNeuron(const int position);
 

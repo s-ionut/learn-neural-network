@@ -50,28 +50,33 @@ void Circle::GeneratePixels()
     }
 };
 
+raylib::Vector2 Circle::GetPosition()
+{
+    return raylib::Vector2{static_cast<float>(m_originX), static_cast<float>(m_originY)};
+};
+
 void Circle::SetPosition(double originX, double originY)
 {
     m_originX = originX;
     m_originY = originY;
-}
+};
 
 void Circle::SetRadius(double radius)
 {
     m_radius = radius;
-}
+};
 
 void Circle::SetColor(raylib::Color fillColor, raylib::Color borderColor)
 {
     m_fillColor = fillColor;
     m_borderColor = borderColor;
-}
+};
 
 void Circle::Update()
 {
     // Use Bresenham's circle algorithm
     GeneratePixels();
-}
+};
 
 void Circle::Draw() const
 {

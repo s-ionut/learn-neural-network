@@ -5,7 +5,7 @@ Application::Application(int width, int height, std::string_view windowName)
       m_height{height},
       m_windowName{windowName},
       m_window(m_width, m_height, std::string{m_windowName}),
-      m_nn(4, std::vector<int>{2, 3, 2, 1})
+      m_nn(5, std::vector<int>{2, 3, 2, 13, 1})
 {
     SetTargetFPS(60);
 
