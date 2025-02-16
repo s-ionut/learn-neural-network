@@ -1,14 +1,13 @@
 #include "NeuralNetwork.hpp"
-#include <iostream>
 
-NeuralNetwork::NeuralNetwork(const int inputLayer, const int hiddenLayer, const int outputLayer)
-    : m_inputLayer{inputLayer},
-      m_hiddenLayer{hiddenLayer},
-      m_outputLayer{outputLayer}
+NeuralNetwork::NeuralNetwork(const size_t numLayers, const std::vector<int> &layerSizes)
+    : m_numLayers{numLayers},
+      m_layerSizes{layerSizes}
 {
-    m_layers.push_back(std::vector<Neuron>(m_inputLayer));
-    m_layers.push_back(std::vector<Neuron>(m_hiddenLayer));
-    m_layers.push_back(std::vector<Neuron>(m_outputLayer));
+    for (int size : m_layerSizes)
+    {
+        m_layers.push_back(Layer(size));
+    }
 
     Resize(0, 0, 400, 400);
 };
@@ -20,27 +19,28 @@ void NeuralNetwork::Resize(double graphMinX, double graphMinY, double graphMaxX,
     m_graphMaxX = graphMaxX;
     m_graphMaxY = graphMaxY;
 
-    size_t numLayers = m_layers.size();
-    if (numLayers == 0)
+    if (m_numLayers == 0)
         return;
 
     size_t maxNeurons = 0;
-    for (const auto &layer : m_layers)
+    for (int size : m_layerSizes)
     {
-        if (layer.size() > maxNeurons)
-            maxNeurons = layer.size();
+        if (size > maxNeurons)
+            maxNeurons = size;
     }
 
-    double horizontalSpacing = (m_graphMaxX - m_graphMinX) / (numLayers + 1);
+    double horizontalSpacing = (m_graphMaxX - m_graphMinX) / (m_numLayers + 1);
     double verticalSpacing = (m_graphMaxY - m_graphMinY) / (maxNeurons + 1);
 
     double neuronRadius = std::min(horizontalSpacing, verticalSpacing) * 0.4;
 
     // Position neurons
-    for (int i = 0; i < numLayers; i++)
+    for (int i = 0; i < m_numLayers; i++)
     {
+        NeuronColor layerColor = (i < m_numLayers - 1 && i > 0) ? m_layerColorMapping[1] : m_layerColorMapping[0];
+
         double layerX = m_graphMinX + (i + 1) * horizontalSpacing;
-        size_t numNeurons = m_layers[i].size();
+        size_t numNeurons = m_layerSizes[i];
 
         // Center neurons in the vertical space
         double layerStartY = (m_graphMaxY + m_graphMinY) / 2.0 - (numNeurons - 1) * verticalSpacing / 2.0;
@@ -48,31 +48,25 @@ void NeuralNetwork::Resize(double graphMinX, double graphMinY, double graphMaxX,
         for (int j = 0; j < numNeurons; j++)
         {
             double neuronY = layerStartY + j * verticalSpacing;
-            m_layers[i][j].SetPosition(layerX, neuronY);
-            m_layers[i][j].SetRadius(neuronRadius);
-            m_layers[i][j].SetColor(m_layerColorMapping[i]);
+            m_layers[i].GetNeuron(j).SetPosition(layerX, neuronY);
+            m_layers[i].GetNeuron(j).SetRadius(neuronRadius);
+            m_layers[i].GetNeuron(j).SetColor(layerColor);
         }
     }
 }
 
 void NeuralNetwork::Update()
 {
-    for (int i = 0; i < 3; i++)
+    for (Layer &layer : m_layers)
     {
-        for (Neuron &neuron : m_layers[i])
-        {
-            neuron.Update();
-        }
+        layer.Update();
     }
 };
 
 void NeuralNetwork::Draw()
 {
-    for (int i = 0; i < 3; i++)
+    for (Layer &layer : m_layers)
     {
-        for (const Neuron &neuron : m_layers[i])
-        {
-            neuron.Draw();
-        }
+        layer.Draw();
     }
 };

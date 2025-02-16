@@ -14,9 +14,13 @@ public:
     Neuron() : Circle(100, 100, 30, raylib::Color::Gray(), raylib::Color::White()) {};
     ~Neuron() = default;
 
+    void Update();
+    void Draw() const;
+
     void SetColor(const NeuronColor neuronColor);
 
 private:
-    double weight;
-    double bias;
+    double m_bias = 0;
+    double m_value = 0;
+    raylib::Text m_text = "";
 };
