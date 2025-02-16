@@ -6,4 +6,5 @@ set(SOURCE_FILES
     ${CORE_BASE_DIR}/Application/Application.cpp
     ${CORE_BASE_DIR}/Pixel/Pixel.cpp
     ${CORE_BASE_DIR}/Circle/Circle.cpp
+    ${CORE_BASE_DIR}/Neuron/Neuron.cpp
 )
