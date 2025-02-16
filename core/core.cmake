@@ -8,4 +8,5 @@ set(SOURCE_FILES
     ${PRIMITIVES_SRC}
     ${CORE_BASE_DIR}/Application/Application.cpp
     ${CORE_BASE_DIR}/Neuron/Neuron.cpp
+    ${CORE_BASE_DIR}/NeuralNetwork/NeuralNetwork.cpp
 )

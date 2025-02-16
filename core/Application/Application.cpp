@@ -4,11 +4,12 @@ Application::Application(int width, int height, std::string_view windowName)
     : m_width{width},
       m_height{height},
       m_windowName{windowName},
-      m_window(m_width, m_height, std::string{m_windowName})
+      m_window(m_width, m_height, std::string{m_windowName}),
+      m_nn(2, 3, 2)
 {
     SetTargetFPS(60);
 
-    m_neurons.push_back(Neuron());
+    m_nn.Resize(0, 0, m_width, m_height);
 };
 
 void Application::Run()
@@ -20,8 +21,9 @@ void Application::Run()
     }
 };
 
-void Application::Update() {
-    // TODO
+void Application::Update()
+{
+    m_nn.Update();
 };
 
 void Application::Render()
@@ -30,7 +32,7 @@ void Application::Render()
 
     m_window.ClearBackground(raylib::Color::Black());
 
-    m_neurons.back().Draw();
+    m_nn.Draw();
 
     EndDrawing();
 };

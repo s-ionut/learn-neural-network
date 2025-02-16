@@ -1,6 +1,6 @@
 #include "raylib-cpp.hpp"
 
-#include "Neuron/Neuron.hpp"
+#include "NeuralNetwork/NeuralNetwork.hpp"
 
 #include <string>
 
@@ -20,7 +20,7 @@ private:
     int m_height;
     std::string_view m_windowName;
 
-    std::vector<Neuron> m_neurons;
+    NeuralNetwork m_nn;
 
     raylib::Window m_window;
 };

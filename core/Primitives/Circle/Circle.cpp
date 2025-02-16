@@ -7,11 +7,7 @@ Circle::Circle(double originX, double originY, double radius, raylib::Color fill
       m_originY{originY},
       m_radius{radius},
       m_fillColor{fillColor},
-      m_borderColor{borderColor}
-{
-    // Use Bresenham's circle algorithm
-    GeneratePixels();
-};
+      m_borderColor{borderColor} {};
 
 void Circle::GeneratePixels()
 {
@@ -53,6 +49,23 @@ void Circle::GeneratePixels()
         ++x;
     }
 };
+
+void Circle::SetPosition(double originX, double originY)
+{
+    m_originX = originX;
+    m_originY = originY;
+}
+
+void Circle::SetRadius(double radius)
+{
+    m_radius = radius;
+}
+
+void Circle::Update()
+{
+    // Use Bresenham's circle algorithm
+    GeneratePixels();
+}
 
 void Circle::Draw() const
 {

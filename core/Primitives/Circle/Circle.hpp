@@ -10,7 +10,11 @@ namespace primitive
         Circle(double originX, double originY, double radius, raylib::Color fillColor, raylib::Color borderColor);
         ~Circle() = default;
 
+        void Update();
         void Draw() const;
+
+        void SetPosition(double originX, double originY);
+        void SetRadius(double radius);
 
     private:
         void GeneratePixels();
