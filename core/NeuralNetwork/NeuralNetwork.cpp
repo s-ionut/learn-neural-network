@@ -20,11 +20,11 @@ void NeuralNetwork::Resize(double graphMinX, double graphMinY, double graphMaxX,
     m_graphMaxX = graphMaxX;
     m_graphMaxY = graphMaxY;
 
-    int numLayers = m_layers.size();
+    size_t numLayers = m_layers.size();
     if (numLayers == 0)
         return;
 
-    int maxNeurons = 0;
+    size_t maxNeurons = 0;
     for (const auto &layer : m_layers)
     {
         if (layer.size() > maxNeurons)
@@ -40,7 +40,7 @@ void NeuralNetwork::Resize(double graphMinX, double graphMinY, double graphMaxX,
     for (int i = 0; i < numLayers; i++)
     {
         double layerX = m_graphMinX + (i + 1) * horizontalSpacing;
-        int numNeurons = m_layers[i].size();
+        size_t numNeurons = m_layers[i].size();
 
         // Center neurons in the vertical space
         double layerStartY = (m_graphMaxY + m_graphMinY) / 2.0 - (numNeurons - 1) * verticalSpacing / 2.0;

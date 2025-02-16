@@ -24,7 +24,4 @@ private:
     double m_graphMinY = 0.;
     double m_graphMaxX = 400.;
     double m_graphMaxY = 400.;
-
-    double m_verticalSpacing = 20.;
-    double m_horizontalSpacing = 30.;
 };
