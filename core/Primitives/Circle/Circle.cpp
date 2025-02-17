@@ -50,7 +50,7 @@ void Circle::GeneratePixels()
     }
 };
 
-raylib::Vector2 Circle::GetPosition()
+raylib::Vector2 Circle::GetPosition() const
 {
     return raylib::Vector2{static_cast<float>(m_originX), static_cast<float>(m_originY)};
 };

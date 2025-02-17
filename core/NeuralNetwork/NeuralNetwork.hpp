@@ -4,6 +4,7 @@
 #include "Connection/Connection.hpp"
 
 #include <vector>
+#include <algorithm>
 
 class NeuralNetwork
 {

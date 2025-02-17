@@ -4,6 +4,9 @@
 
 #include "Circle/Circle.hpp"
 
+#include <iomanip>
+#include <sstream>
+
 struct NeuronColor
 {
     raylib::Color fillColor;
@@ -24,5 +27,5 @@ public:
 private:
     double m_bias = 0;
     double m_value = 0;
-    raylib::Text m_text = "";
+    std::string m_text = "";
 };
