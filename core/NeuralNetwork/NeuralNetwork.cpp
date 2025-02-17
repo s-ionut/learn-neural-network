@@ -76,6 +76,7 @@ void NeuralNetwork::SetConnections()
             {
                 raylib::Vector2 endPos = nextLayer->GetNeuron(k).GetPosition();
                 m_connections.push_back(Connection(startPos.x, startPos.y, endPos.x, endPos.y));
+                m_connections.back().SetConnection(NConn{i, j}, NConn{i + 1, k});
             }
         }
     }

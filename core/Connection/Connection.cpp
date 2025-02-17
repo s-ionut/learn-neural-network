@@ -9,3 +9,9 @@ void Connection::SetWeight(double weight)
 {
     m_weight = weight;
 };
+
+void Connection::SetConnection(NConn fromNeuron, NConn toNeuron)
+{
+    m_fromNeuron = fromNeuron;
+    m_toNeuron = toNeuron;
+};

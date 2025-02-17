@@ -2,6 +2,7 @@
 
 #include "raylib-cpp.hpp"
 
+#include "Helper/Helper.hpp"
 #include "Circle/Circle.hpp"
 
 #include <iomanip>
@@ -16,7 +17,7 @@ struct NeuronColor
 class Neuron : public primitive::Circle
 {
 public:
-    Neuron() : Circle(100, 100, 30, raylib::Color::Gray(), raylib::Color::White()) {};
+    Neuron() : Circle(100, 100, 30, raylib::Color::Gray(), raylib::Color::White()), m_value{helper::GetRandom()} {};
     ~Neuron() = default;
 
     void Update();
