@@ -84,6 +84,10 @@ void NeuralNetwork::SetConnections()
 
 void NeuralNetwork::Update()
 {
+    for (Connection &connection : m_connections)
+    {
+        connection.Update();
+    }
     for (Layer &layer : m_layers)
     {
         layer.Update();
@@ -92,11 +96,6 @@ void NeuralNetwork::Update()
 
 void NeuralNetwork::Draw()
 {
-    for (Connection &connection : m_connections)
-    {
-        connection.Draw();
-    }
-
     for (Layer &layer : m_layers)
     {
         layer.Draw();

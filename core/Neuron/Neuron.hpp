@@ -4,6 +4,7 @@
 
 #include "Helper/Helper.hpp"
 #include "Circle/Circle.hpp"
+#include "Canvas/Canvas.hpp"
 
 #include <iomanip>
 #include <sstream>

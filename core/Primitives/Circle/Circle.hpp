@@ -3,6 +3,7 @@
 #include "raylib-cpp.hpp"
 
 #include "Pixel/Pixel.hpp"
+#include "Canvas/Canvas.hpp"
 
 namespace primitive
 {
@@ -13,7 +14,6 @@ namespace primitive
         ~Circle() = default;
 
         void Update();
-        void Draw() const;
 
         raylib::Vector2 GetPosition() const;
 
@@ -30,6 +30,5 @@ namespace primitive
 
         raylib::Color m_fillColor;
         raylib::Color m_borderColor;
-        std::vector<primitive::Pixel> m_pixels;
     };
 }; // namespace primitive

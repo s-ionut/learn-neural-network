@@ -11,31 +11,35 @@ Circle::Circle(double originX, double originY, double radius, raylib::Color fill
 
 void Circle::GeneratePixels()
 {
+    Canvas &canvasImage = Canvas::getInstance();
+
     int x = 0;
     int y = static_cast<int>(m_radius);
     int d = 3 - 2 * static_cast<int>(m_radius);
 
     while (x <= y)
     {
+
         for (double i = m_originX - x; i <= m_originX + x; i++)
         {
-            m_pixels.push_back(primitive::Pixel(i, m_originY + y, m_fillColor));
-            m_pixels.push_back(primitive::Pixel(i, m_originY - y, m_fillColor));
-        }
-        for (double i = m_originX - y; i <= m_originX + y; i++)
-        {
-            m_pixels.push_back(primitive::Pixel(i, m_originY + x, m_fillColor));
-            m_pixels.push_back(primitive::Pixel(i, m_originY - x, m_fillColor));
+            canvasImage.DrawPixel(i, m_originY + y, m_fillColor);
+            canvasImage.DrawPixel(i, m_originY - y, m_fillColor);
         }
 
-        m_pixels.push_back(primitive::Pixel(m_originX + x, m_originY + y, m_borderColor));
-        m_pixels.push_back(primitive::Pixel(m_originX - x, m_originY + y, m_borderColor));
-        m_pixels.push_back(primitive::Pixel(m_originX + x, m_originY - y, m_borderColor));
-        m_pixels.push_back(primitive::Pixel(m_originX - x, m_originY - y, m_borderColor));
-        m_pixels.push_back(primitive::Pixel(m_originX + y, m_originY + x, m_borderColor));
-        m_pixels.push_back(primitive::Pixel(m_originX - y, m_originY + x, m_borderColor));
-        m_pixels.push_back(primitive::Pixel(m_originX + y, m_originY - x, m_borderColor));
-        m_pixels.push_back(primitive::Pixel(m_originX - y, m_originY - x, m_borderColor));
+        for (double i = m_originX - y; i <= m_originX + y; i++)
+        {
+            canvasImage.DrawPixel(i, m_originY + x, m_fillColor);
+            canvasImage.DrawPixel(i, m_originY - x, m_fillColor);
+        }
+
+        canvasImage.DrawPixel(m_originX + x, m_originY + y, m_borderColor);
+        canvasImage.DrawPixel(m_originX - x, m_originY + y, m_borderColor);
+        canvasImage.DrawPixel(m_originX + x, m_originY - y, m_borderColor);
+        canvasImage.DrawPixel(m_originX - x, m_originY - y, m_borderColor);
+        canvasImage.DrawPixel(m_originX + y, m_originY + x, m_borderColor);
+        canvasImage.DrawPixel(m_originX - y, m_originY + x, m_borderColor);
+        canvasImage.DrawPixel(m_originX + y, m_originY - x, m_borderColor);
+        canvasImage.DrawPixel(m_originX - y, m_originY - x, m_borderColor);
 
         if (d < 0)
         {
@@ -76,12 +80,4 @@ void Circle::Update()
 {
     // Use Bresenham's circle algorithm
     GeneratePixels();
-};
-
-void Circle::Draw() const
-{
-    for (const auto &pixel : m_pixels)
-    {
-        pixel.Draw();
-    }
 };

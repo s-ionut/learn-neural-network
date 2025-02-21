@@ -1,8 +1,6 @@
 #pragma once
 
-#include "Pixel/Pixel.hpp"
-
-#include <vector>
+#include "Canvas/Canvas.hpp"
 
 class Line
 {
@@ -11,7 +9,6 @@ public:
     ~Line() = default;
 
     void Update();
-    void Draw() const;
 
     void SetColor(raylib::Color lineColor);
 
@@ -23,8 +20,6 @@ private:
     double m_startY;
     double m_endX;
     double m_endY;
-
-    std::vector<primitive::Pixel> m_pixels;
 
     raylib::Color m_lineColor = raylib::Color::White();
 };

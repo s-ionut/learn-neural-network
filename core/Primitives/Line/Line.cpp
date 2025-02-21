@@ -1,17 +1,15 @@
 #include "Line.hpp"
+#include <iostream>
 
 Line::Line(double startX, double startY, double endX, double endY)
     : m_startX(startX),
       m_startY(startY),
       m_endX(endX),
-      m_endY(endY)
-{
-    // Use Bresenham’s Line Algorithm (integer based)
-    GeneratePixels();
-};
+      m_endY(endY) {};
 
 void Line::GeneratePixels()
 {
+    Canvas &canvas = Canvas::getInstance();
     int startX = static_cast<int>(m_startX);
     int endX = static_cast<int>(m_endX);
     int startY = static_cast<int>(m_startY);
@@ -27,7 +25,7 @@ void Line::GeneratePixels()
 
     while (true)
     {
-        m_pixels.push_back(primitive::Pixel(startX, startY, m_lineColor));
+        canvas.DrawPixel(startX, startY, m_lineColor);
 
         if (startX == endX && startY == endY)
             break; // Stop when reaching endpoint
@@ -53,14 +51,8 @@ void Line::SetColor(raylib::Color lineColor)
     m_lineColor = lineColor;
 };
 
-void Line::Update() {
-    // TODO
-};
-
-void Line::Draw() const
+void Line::Update()
 {
-    for (const auto &pixel : m_pixels)
-    {
-        pixel.Draw();
-    }
+    // Use Bresenham’s Line Algorithm (integer based)
+    GeneratePixels();
 };
