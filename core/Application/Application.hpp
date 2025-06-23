@@ -6,6 +6,8 @@
 #include "NeuralNetwork/NeuralNetwork.hpp"
 
 #include <string>
+#include <vector>
+#include <random>
 
 class Application
 {
@@ -17,6 +19,10 @@ public:
 private:
     void Update();
     void Render();
+    void RunNeuralNetworkDemo();
+    void TrainWithSampleData();
+    std::vector<double> GenerateRandomImage();
+    std::vector<double> CreateTargetVector(int digit);
 
 private:
     int m_width;
