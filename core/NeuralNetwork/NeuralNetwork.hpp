@@ -29,6 +29,19 @@ public:
     double CalculateLoss(const std::vector<double>& outputs, const std::vector<double>& targets) const;
     void Backpropagate(const std::vector<double>& targets);
     void UpdateWeights(double learningRate);
+    
+    // Weight initialization
+    enum class InitializationType { RANDOM, XAVIER, HE };
+    void InitializeWeights(InitializationType type);
+    void SetActivationFunction(Neuron::ActivationType activation);
+    
+    // Metrics collection
+    std::vector<double> GetGradientNorms() const;
+    std::vector<double> GetLayerActivations(int layerIndex) const;
+    std::vector<double> GetLayerWeights(int layerIndex) const;
+    std::vector<double> GetLayerGradients(int layerIndex) const;
+    int GetNumLayers() const { return m_numLayers; }
+    int GetLayerSize(int layerIndex) const { return m_layerSizes[layerIndex]; }
 
 private:
     void SetConnections();
@@ -36,6 +49,7 @@ private:
     int GetConnectionIndex(int fromLayer, int fromNeuron, int toLayer, int toNeuron) const;
     void CalculateOutputErrors(const std::vector<double>& targets);
     void CalculateHiddenErrors();
+    double GenerateRandomWeight(InitializationType type, int fanIn, int fanOut) const;
 
 private:
     size_t m_numLayers;

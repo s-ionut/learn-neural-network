@@ -65,8 +65,8 @@ void Neuron::AddInput(double input)
 
 void Neuron::CalculateOutput()
 {
-    // Apply activation function to input sum + bias
-    m_value = Sigmoid(m_inputSum + m_bias);
+    // Apply selected activation function to input sum + bias
+    m_value = ApplyActivation(m_inputSum + m_bias);
 };
 
 void Neuron::ResetInputs()
@@ -84,6 +84,76 @@ double Neuron::ReLU(double x) const
     return std::max(0.0, x);
 };
 
+double Neuron::LeakyReLU(double x, double alpha) const
+{
+    return x > 0 ? x : alpha * x;
+};
+
+double Neuron::ELU(double x, double alpha) const
+{
+    return x > 0 ? x : alpha * (std::exp(x) - 1.0);
+};
+
+double Neuron::Tanh(double x) const
+{
+    return std::tanh(x);
+};
+
+void Neuron::SetActivationType(ActivationType type)
+{
+    m_activationType = type;
+};
+
+Neuron::ActivationType Neuron::GetActivationType() const
+{
+    return m_activationType;
+};
+
+double Neuron::ApplyActivation(double x) const
+{
+    switch (m_activationType)
+    {
+        case ActivationType::SIGMOID: return Sigmoid(x);
+        case ActivationType::RELU: return ReLU(x);
+        case ActivationType::LEAKY_RELU: return LeakyReLU(x);
+        case ActivationType::ELU: return ELU(x);
+        case ActivationType::TANH: return Tanh(x);
+        default: return ReLU(x);
+    }
+};
+
+double Neuron::ApplyActivationDerivative(double x) const
+{
+    switch (m_activationType)
+    {
+        case ActivationType::SIGMOID: return SigmoidDerivative(x);
+        case ActivationType::RELU: return x > 0 ? 1.0 : 0.0;
+        case ActivationType::LEAKY_RELU: return x > 0 ? 1.0 : 0.01;
+        case ActivationType::ELU: return x > 0 ? 1.0 : ELU(x) + 1.0;
+        case ActivationType::TANH: return 1.0 - x * x; // derivative of tanh
+        default: return x > 0 ? 1.0 : 0.0;
+    }
+};
+
+void Neuron::SetBatchNormalization(bool enabled)
+{
+    m_batchNormEnabled = enabled;
+};
+
+bool Neuron::IsBatchNormEnabled() const
+{
+    return m_batchNormEnabled;
+};
+
+void Neuron::ApplyBatchNorm(double mean, double variance, double epsilon)
+{
+    if (m_batchNormEnabled)
+    {
+        // Normalize: (x - mean) / sqrt(variance + epsilon)
+        m_value = (m_value - mean) / std::sqrt(variance + epsilon);
+    }
+};
+
 void Neuron::SetError(double error)
 {
     m_error = error;
@@ -97,7 +167,7 @@ double Neuron::GetError() const
 void Neuron::CalculateGradient()
 {
     // Gradient = error * derivative of activation function
-    m_gradient = m_error * SigmoidDerivative(m_value);
+    m_gradient = m_error * ApplyActivationDerivative(m_value);
 };
 
 double Neuron::GetGradient() const

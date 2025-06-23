@@ -1,4 +1,6 @@
 #include "NeuralNetwork.hpp"
+#include <random>
+#include <cmath>
 
 NeuralNetwork::NeuralNetwork(const size_t numLayers, const std::vector<int> &layerSizes)
     : m_numLayers{numLayers},
@@ -12,6 +14,7 @@ NeuralNetwork::NeuralNetwork(const size_t numLayers, const std::vector<int> &lay
     Resize(0, 0, 400, 400);
 
     SetConnections();
+    InitializeWeights(InitializationType::HE); // Default to He initialization for ReLU
 };
 
 void NeuralNetwork::Resize(double graphMinX, double graphMinY, double graphMaxX, double graphMaxY)
@@ -344,4 +347,139 @@ void NeuralNetwork::UpdateWeights(double learningRate)
             }
         }
     }
+};
+
+void NeuralNetwork::InitializeWeights(InitializationType type)
+{
+    for (size_t layerIdx = 0; layerIdx < m_numLayers - 1; layerIdx++)
+    {
+        int fanIn = m_layerSizes[layerIdx];
+        int fanOut = m_layerSizes[layerIdx + 1];
+        
+        for (int fromNeuronIdx = 0; fromNeuronIdx < fanIn; fromNeuronIdx++)
+        {
+            for (int toNeuronIdx = 0; toNeuronIdx < fanOut; toNeuronIdx++)
+            {
+                int connIdx = GetConnectionIndex(layerIdx, fromNeuronIdx, layerIdx + 1, toNeuronIdx);
+                if (connIdx >= 0)
+                {
+                    double weight = GenerateRandomWeight(type, fanIn, fanOut);
+                    m_connections[connIdx].SetWeight(weight);
+                }
+            }
+        }
+    }
+};
+
+void NeuralNetwork::SetActivationFunction(Neuron::ActivationType activation)
+{
+    // Set activation for all hidden and output layers (not input)
+    for (size_t layerIdx = 1; layerIdx < m_numLayers; layerIdx++)
+    {
+        for (int neuronIdx = 0; neuronIdx < m_layerSizes[layerIdx]; neuronIdx++)
+        {
+            m_layers[layerIdx].GetNeuron(neuronIdx).SetActivationType(activation);
+        }
+    }
+};
+
+double NeuralNetwork::GenerateRandomWeight(InitializationType type, int fanIn, int fanOut) const
+{
+    static std::random_device rd;
+    static std::mt19937 gen(rd());
+    
+    double variance;
+    switch (type)
+    {
+        case InitializationType::XAVIER:
+            // Xavier initialization: variance = 2 / (fan_in + fan_out)
+            variance = 2.0 / (fanIn + fanOut);
+            break;
+        case InitializationType::HE:
+            // He initialization: variance = 2 / fan_in (good for ReLU)
+            variance = 2.0 / fanIn;
+            break;
+        case InitializationType::RANDOM:
+        default:
+            variance = 1.0;
+            break;
+    }
+    
+    std::normal_distribution<double> dist(0.0, std::sqrt(variance));
+    return dist(gen);
+};
+
+std::vector<double> NeuralNetwork::GetGradientNorms() const
+{
+    std::vector<double> norms;
+    
+    for (size_t layerIdx = 1; layerIdx < m_numLayers; layerIdx++)
+    {
+        double norm = 0.0;
+        int count = 0;
+        
+        // Calculate norm of gradients for this layer
+        for (int neuronIdx = 0; neuronIdx < m_layerSizes[layerIdx]; neuronIdx++)
+        {
+            double grad = m_layers[layerIdx].GetNeuron(neuronIdx).GetGradient();
+            norm += grad * grad;
+            count++;
+        }
+        
+        norms.push_back(std::sqrt(norm / std::max(count, 1)));
+    }
+    
+    return norms;
+};
+
+std::vector<double> NeuralNetwork::GetLayerActivations(int layerIndex) const
+{
+    std::vector<double> activations;
+    
+    if (layerIndex >= 0 && layerIndex < m_numLayers)
+    {
+        for (int neuronIdx = 0; neuronIdx < m_layerSizes[layerIndex]; neuronIdx++)
+        {
+            activations.push_back(m_layers[layerIndex].GetNeuron(neuronIdx).GetValue());
+        }
+    }
+    
+    return activations;
+};
+
+std::vector<double> NeuralNetwork::GetLayerWeights(int layerIndex) const
+{
+    std::vector<double> weights;
+    
+    if (layerIndex >= 0 && layerIndex < m_numLayers - 1)
+    {
+        for (int fromNeuron = 0; fromNeuron < m_layerSizes[layerIndex]; fromNeuron++)
+        {
+            for (int toNeuron = 0; toNeuron < m_layerSizes[layerIndex + 1]; toNeuron++)
+            {
+                int connIdx = GetConnectionIndex(layerIndex, fromNeuron, layerIndex + 1, toNeuron);
+                if (connIdx >= 0)
+                {
+                    weights.push_back(m_connections[connIdx].GetWeight());
+                }
+            }
+        }
+    }
+    
+    return weights;
+};
+
+std::vector<double> NeuralNetwork::GetLayerGradients(int layerIndex) const
+{
+    std::vector<double> gradients;
+    
+    if (layerIndex >= 0 && layerIndex < m_numLayers)
+    {
+        for (int neuronIdx = 0; neuronIdx < m_layerSizes[layerIndex]; neuronIdx++)
+        {
+            gradients.push_back(m_layers[layerIndex].GetNeuron(neuronIdx).GetGradient());
+        }
+    }
+    
+    return gradients;
 };
