@@ -9,6 +9,11 @@ Neuron &Layer::GetNeuron(const int position)
     return m_neurons[position];
 };
 
+const Neuron &Layer::GetNeuron(const int position) const
+{
+    return m_neurons[position];
+};
+
 void Layer::Update()
 {
     for (Neuron &neuron : m_neurons)
@@ -22,5 +27,13 @@ void Layer::Draw()
     for (Neuron &neuron : m_neurons)
     {
         neuron.Draw();
+    }
+};
+
+void Layer::DrawDirect()
+{
+    for (Neuron &neuron : m_neurons)
+    {
+        neuron.DrawDirect();
     }
 };

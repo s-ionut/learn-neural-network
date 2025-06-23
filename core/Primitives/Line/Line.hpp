@@ -11,6 +11,13 @@ public:
     void Update();
 
     void SetColor(raylib::Color lineColor);
+    
+    // Getters for direct rendering
+    double GetStartX() const { return m_startX; }
+    double GetStartY() const { return m_startY; }
+    double GetEndX() const { return m_endX; }
+    double GetEndY() const { return m_endY; }
+    raylib::Color GetColor() const { return m_lineColor; }
 
 private:
     void GeneratePixels();

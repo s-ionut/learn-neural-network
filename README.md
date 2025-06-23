@@ -10,7 +10,7 @@ A place for me to learn neural network using raylib for visualisation.
 ## Build steps
 ```
 mkdir .build && cd .build
-cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_POLICY_VERSION_MINIMUM=3.5 ..
+cmake -DCMAKE_BUILD_TYPE=Release ..
 cmake --build .
 ```
 

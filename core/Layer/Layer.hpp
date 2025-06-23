@@ -11,11 +11,13 @@ public:
     ~Layer() = default;
 
     void Draw();
+    void DrawDirect();
     void Update();
 
     void SetConnections(const Layer &nextLayer);
 
     Neuron &GetNeuron(const int position);
+    const Neuron &GetNeuron(const int position) const;
 
 private:
     size_t m_layerSize = 0;

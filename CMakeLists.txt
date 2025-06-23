@@ -7,6 +7,8 @@ set(SOURCE_FILES CACHE INTERNAL "")
 
 include(vendors/raylib.cmake)
 include(vendors/raylib-cpp.cmake)
+include(vendors/imgui.cmake)
+include(vendors/rlimgui.cmake)
 
 add_executable(${PROJECT_NAME} main.cpp)
 
@@ -14,6 +16,7 @@ target_link_libraries(${PROJECT_NAME}
     PUBLIC
     raylib
     raylib_cpp
+    rlimgui
 )
 
 target_include_directories(${PROJECT_NAME}

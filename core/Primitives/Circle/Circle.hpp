@@ -16,6 +16,7 @@ namespace primitive
         void Update();
 
         raylib::Vector2 GetPosition() const;
+        double GetRadius() const;
 
         void SetPosition(double originX, double originY);
         void SetRadius(double radius);

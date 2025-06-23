@@ -59,6 +59,11 @@ raylib::Vector2 Circle::GetPosition() const
     return raylib::Vector2{static_cast<float>(m_originX), static_cast<float>(m_originY)};
 };
 
+double Circle::GetRadius() const
+{
+    return m_radius;
+};
+
 void Circle::SetPosition(double originX, double originY)
 {
     m_originX = originX;
