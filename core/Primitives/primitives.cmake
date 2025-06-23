@@ -1,4 +1,4 @@
-set(PRIMITIVES_BASE_DIR ${CORE_BASE_DIR}/primitives)
+set(PRIMITIVES_BASE_DIR ${CORE_BASE_DIR}/Primitives)
 
 set(PRIMITIVES_SRC
     ${PRIMITIVES_BASE_DIR}/Pixel/Pixel.cpp
